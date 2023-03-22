@@ -22,7 +22,16 @@ galleryItems.forEach((img) => {
 galleryEl.addEventListener("click", (event) => {
   event.preventDefault();
   const instance = basicLightbox.create(
-    `<img src="${event.target.dataset.source}"/>`
+    `<img src="${event.target.dataset.source}"/>`,
+    {
+      onShow: (instance) => {
+        galleryEl.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+            instance.close();
+          }
+        });
+      },
+    }
   );
   instance.show();
 });
